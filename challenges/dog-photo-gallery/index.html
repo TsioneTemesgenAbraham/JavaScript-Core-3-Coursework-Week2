@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dogs photos</title>
+    <style>
+        .butonz{
+            padding: 20px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <!-- <button id="add">Add photo</button> -->
+        <button class="butonz" onClick="window.location.reload();">Refresh Page</button>
+    </div>
+    <script>
+
+        var main = document.getElementById("main")
+        var photoUl = document.createElement("ul")
+
+        // first button
+        var button = document.createElement("button")
+        button.innerText = "Add Photo";
+        button.className = "butonz"
+        main.appendChild(button);
+
+        // second button
+        // var button2 = document.createElement("button")
+        // button2.innerText = "Delete";
+        // main.appendChild(button2);
+
+        // add event listener to the first button
+        var url = `https://dog.ceo/api/breeds/image/random`;
+        button.addEventListener("click", addPhoto)
+        
+        
+        var li = document.createElement("li")
+        async  function addPhoto() {
+           var response = await fetch(url);
+           var data = await response.json().catch((error) =>  console.log(error));
+        
+            // create img list
+            
+            var img = document.createElement("img")
+            img.src = `${data.message}`;
+            li.appendChild(img);
+            photoUl.appendChild(li);
+            main.appendChild(photoUl)
+        }
+
+       // add event listener to the second button
+        // button2.addEventListener("clicked", deleteP)
+
+        // function deleteP() {
+        //    var lis = document.querySelectorAll("li")
+        //     for(var i=0; i<li.length; i++){
+        //         li[i].remove();
+        //     }
+        // }
+        // deleteP();
+    </script>
+</body>
+</html>
